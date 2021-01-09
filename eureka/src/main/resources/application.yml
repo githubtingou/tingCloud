@@ -1,0 +1,18 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: eureka
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    serviceUrl:
+      # eureka注册中心地址
+      defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka
+    # 是否注册自身
+    fetch-registry: true
+    # 只允许访问别人，不让其他服务访问自己
+    register-with-eureka: true
