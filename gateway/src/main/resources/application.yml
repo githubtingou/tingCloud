@@ -6,9 +6,20 @@ spring:
   cloud:
     gateway:
       routes:
-         # 路由id 唯一
+        # 路由id 唯一
         - id: client
-          uri: ${spring.cloud.client.ip-address}:${server.port}
+
+          # 匹配后需要转发的地址 ，符合Uri格式
+          uri: http://${spring.cloud.client.ip-address}:8083
+          # 匹配规则
+          predicates:
+            # 请求方式 需要用"="进行赋值，内部方法是根据"="进行匹配赋值的
+            #            - Method=get
+            # 通过地址匹配
+            # - Path=/api/**
+            # 通过 默认网关 +子网掩码对应 自身访问ip地址会变 改为 0:0:0:0:0:0:0:1试一下
+            - RemoteAddr=${spring.cloud.client.ip-address}/26
+
 
 eureka:
   instance:
@@ -19,3 +30,7 @@ eureka:
     serviceUrl:
       defaultZone: http://127.0.0.1:8080/eureka
 
+logging:
+  level:
+    # 开启gateway debug级别日志
+    org.springframework.cloud.gateway: debug
