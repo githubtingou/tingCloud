@@ -5,24 +5,36 @@ spring:
     name: gateway
   cloud:
     gateway:
-      routes:
-        # 路由id 唯一
-        - id: client
-
-          # 匹配后需要转发的地址 ，符合Uri格式
-          uri: http://${spring.cloud.client.ip-address}:8083
-          # 匹配规则
-          predicates:
-            # 请求方式 需要用"="进行赋值，内部方法是根据"="进行匹配赋值的
-            #            - Method=get
-            # 通过地址匹配
-            # - Path=/api/**
-            # 通过 默认网关 +子网掩码对应 自身访问ip地址会变 改为 0:0:0:0:0:0:0:1试一下
-            - RemoteAddr=${spring.cloud.client.ip-address}/26
+      httpclient:
+        # 连接超时时间，单位毫秒
+        connect-timeout: 10000
+        # 响应超时时间，参数格式:java.time.Duration
+        response-timeout: 10s
+      discovery:
+        # 通过服务名动态调用，请求格式 例：http://localhost:8080/服务名/接口地址
+        locator:
+          # 开启服务名默认路由
+          enabled: true
+          # 服务名默认为大写，true为小写，false为大写
+          lower-case-service-id: false
+#      routes:
+#        # 路由id 唯一
+#        - id: client
+#          # 匹配后需要转发的地址 ，符合Uri格式
+#          uri: http://${spring.cloud.client.ip-address}:8083
+#          # 匹配规则
+#          predicates:
+#            # 请求方式 需要用"="进行赋值，内部方法是根据"="进行匹配赋值的
+#            # - Method=get
+#            # 通过地址匹配
+#            # - Path=/api/**
+#            # 通过 默认网关 +子网掩码对应 自身访问ip地址会变 改为 0:0:0:0:0:0:0:1试一下
+#            - RemoteAddr=0:0:0:0:0:0:0:1
 
 
 eureka:
   instance:
+    # 注册的唯一id
     instance-id: ${spring.cloud.client.ip-address}:${server.port}
     prefer-ip-address: true
   client:
