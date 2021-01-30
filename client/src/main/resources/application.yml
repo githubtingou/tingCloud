@@ -10,5 +10,7 @@ eureka:
   client:
     register-with-eureka: true
     serviceUrl:
-      defaultZone: http://127.0.0.1:8080/eureka
+      defaultZone: http://eureka:8080/eureka,http://eureka1:8088/eureka
+
+    eureka-server-total-connections:
 
