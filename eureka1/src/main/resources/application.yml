@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8088
 spring:
   application:
     name: eureka
@@ -10,7 +10,8 @@ eureka:
     prefer-ip-address: true
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
     # 设置eureka实例名称，建议与配置文件的变量相同，必须和Linux系统域名相同
-    hostname: eureka
+    hostname: eureka1
+  #    hostname: ${HOST_NAME}
 #    status-page-url-path: ${server.servletPath}/info
 #    health-check-url-path: ${server.servletPath}/health
   client:
@@ -19,7 +20,7 @@ eureka:
       enabled: true
     serviceUrl:
       # eureka注册中心地址
-      defaultZone: http://eureka1:8088/eureka
+      defaultZone: http://eureka:8080/eureka
     # 是否注册自身
     fetch-registry: false
     # 只允许访问别人，不让其他服务访问自己
