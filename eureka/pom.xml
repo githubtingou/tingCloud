@@ -9,10 +9,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+
     <artifactId>eureka</artifactId>
     <name>eureka</name>
     <description>注册中心</description>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
 
     <dependencies>
@@ -23,6 +25,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -40,4 +48,7 @@
 
     </dependencies>
 
+    <build>
+        <finalName>eureka</finalName>
+    </build>
 </project>

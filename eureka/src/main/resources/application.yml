@@ -11,15 +11,15 @@ eureka:
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
     # 设置eureka实例名称，建议与配置文件的变量相同，必须和Linux系统域名相同
     hostname: eureka
-#    status-page-url-path: ${server.servletPath}/info
-#    health-check-url-path: ${server.servletPath}/health
+  #    status-page-url-path: ${server.servletPath}/info
+  #    health-check-url-path: ${server.servletPath}/health
   client:
     healthcheck:
       # 健康检查
       enabled: true
     serviceUrl:
       # eureka注册中心地址
-      defaultZone: http://eureka1:8088/eureka
+      defaultZone: http://ting:ting@ting.eureka1:8088/eureka
     # 是否注册自身
     fetch-registry: false
     # 只允许访问别人，不让其他服务访问自己

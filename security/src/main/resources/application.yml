@@ -1,0 +1,41 @@
+server:
+  port: 8200
+
+spring:
+  application:
+    name: security
+  datasource:
+    url: jdbc:mysql://localhost:3306/security-jwt?serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    password: root
+    username: root
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    timeZone: Asia/Shanghai
+
+mybatis-plus:
+  mapper-locations: classpath*:mybatis/*.xml
+  type-aliases-package: com.ting.secuirty.domain
+  global-config:
+    db-config:
+      id-type: auto
+
+eureka:
+  instance:
+    # 注册的唯一id
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://ting.eureka:8080/eureka,http://ting.eureka1:8088/eureka
+
+html:
+  prefix: web/**
+
+jwt:
+  tokenHeader: ting
+  tokenPrefix: Ting
+  secret: tingjwt
+  expiration: 3600
+  rememberExpiration: 604800

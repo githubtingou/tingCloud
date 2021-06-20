@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ting.security.mapper.SysUserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.ting.security.dto.UserDto">
+        <result column="username" property="userName"/>
+        <result column="userId" property="id"/>
+        <result column="phone" property="phone"/>
+        <collection column="roleList" property="roleList"/>
+    </resultMap>
+
+    <select id="getUserAndRoleByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT t1.username          as username,
+               t1.id                as userId,
+               t1.phone             as phone,
+               concat(t3.role_code) as roleList
+        FROM sys_user t1
+                     LEFT JOIN sys_user_role t2 ON t1.id = t2.user_id
+                     left join sys_role t3 ON t2.role_id = t3.id
+        where t1.username = #{username}
+    </select>
+</mapper>

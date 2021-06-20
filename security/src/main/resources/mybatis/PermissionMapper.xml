@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ting.security.mapper.PermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.ting.security.dto.PermissionDto">
+        <result column="premission_url" property="permissionUrl"/>
+        <collection column="roleList" property="roleNames"/>
+    </resultMap>
+
+    <select id="seleteAllRoleByUrl" resultType="com.ting.security.dto.PermissionDto">
+        SELECT t1.premission_url as permissionUrl,
+               CONCAT(t3.role_code) as roleNames
+        FROM sys_permission t1
+                     LEFT JOIN sys_role_premission t2 ON t1.id = t2.permission_id
+                     LEFT JOIN sys_role t3 ON t2.role_id = t3.id
+    </select>
+</mapper>
